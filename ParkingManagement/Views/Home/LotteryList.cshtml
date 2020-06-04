@@ -1,0 +1,68 @@
+﻿@model Parking.Domain.Core.Entities.HomePage
+
+@{
+    ViewBag.Title = "LotteryList";
+}
+
+<h4>Request List</h4>
+<div>
+    <table id="customers" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Duration</th>
+                <th>From Date</th>
+                <th>To Date</th>
+                <th>Preference 1</th>
+                <th>Preference 2</th>
+                <th>Preference 3</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<br />
+<div>
+    <input type="button" value="Run Lottery" class="btn-success" onclick="@("window.location.href='" + @Url.Action("RunLottery", "Lottery") + "'");" />
+    <input type="button" value="Back" class="btn-danger" onclick="@("window.location.href='" + @Url.Action("HomePage", "Home") + "'");" />
+
+</div>
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            //debugger;
+            var table = $("#customers").DataTable({
+                ajax: {
+                    url: "http://localhost:52918/api/employeeslot",
+                    dataSrc: "",
+                },
+                columns: [
+                    {
+                        data: "requestDetailsId"
+                    },
+                    {
+                        data: "requestDurationType.durationDescription"
+                    },
+                    {
+                        data: "fromDate"
+                    },
+                    {
+                        data: "toDate"
+                    },
+                    {
+                        data: "preferenceOneTowerId"
+                    },
+                    {
+                        data: "preferenceTwoTowerId"
+                    },
+                    {
+                        data: "preferenceThreeTowerId"
+                    }
+                ]
+            });
+        });
+    </script>
+}
+
